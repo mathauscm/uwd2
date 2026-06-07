@@ -1,6 +1,5 @@
-use windows::core::BSTR;
+use windows::core::{Interface, BSTR, VARIANT};
 use windows::Win32::Foundation::VARIANT_BOOL;
-use windows::Win32::System::Variant::VARIANT;
 use windows::Win32::System::Com::{CoCreateInstance, CoInitializeEx, CLSCTX_ALL, COINIT_MULTITHREADED};
 use windows::Win32::System::TaskScheduler::{
     IActionCollection, IExecAction, ILogonTrigger, IPrincipal, IRegisteredTask, ITaskDefinition,
@@ -156,7 +155,7 @@ pub fn status() {
 unsafe fn get_task_exe_path(task: &IRegisteredTask) -> Result<String, windows::core::Error> {
     let def = task.Definition()?;
     let actions = def.Actions()?;
-    let action = actions.Item(1)?;
+    let action = actions.get_Item(1)?;
     let exec: IExecAction = action.cast()?;
     Ok(exec.Path()?.to_string())
 }
