@@ -4,7 +4,13 @@ USAGE:
     {} [SUBCOMMAND]
 
 SUBCOMMANDS:
-    <no subcommand> Alias for inject subcommand
-    inject          Injects into the running explorer.exe process's memory to remove the watermark. Does not persist if explorer.exe or system is restarted.
-    help            Shows this menu
-    about           Shows some information about UWD2
+    <no subcommand>  Alias for patch
+    patch            Apply the watermark patch to the running explorer.exe
+    install          Copy UWD2 to AppData, create startup task, and apply patch immediately
+    uninstall        Remove the startup task and installed files
+    status           Show whether the startup task is installed and enabled
+    repair           Re-create task and re-apply patch (fixes broken installs)
+    help             Show this menu
+    about            Show information about UWD2
+
+NOTE: UWD2 does NOT remove the "Activate Windows" watermark.

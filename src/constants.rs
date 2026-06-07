@@ -8,7 +8,10 @@ pub fn data_dir() -> PathBuf {
     dir.to_owned()
 }
 
-pub const SHELL32_PATH: &str = r"C:\Windows\System32\shell32.dll";
+pub fn shell32_path() -> String {
+    let windir = std::env::var("SystemRoot").unwrap_or_else(|_| r"C:\Windows".to_string());
+    format!(r"{windir}\System32\shell32.dll")
+}
 
 // ret instruction
 #[cfg(target_arch = "x86_64")]
