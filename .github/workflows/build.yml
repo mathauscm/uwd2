@@ -16,13 +16,6 @@ jobs:
             name: ${{ github.event.repository.name }}-x86_64-pc-windows-msvc.exe
             command: build
 
-          - release_for: Windows-ARM
-            os: windows-latest
-            target: aarch64-pc-windows-msvc
-            bin: ${{ github.event.repository.name }}.exe
-            name: ${{ github.event.repository.name }}-aarch64-pc-windows-msvc.exe
-            command: build
-
 
     runs-on: ${{ matrix.platform.os }}
     steps:
