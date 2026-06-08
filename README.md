@@ -21,6 +21,39 @@ Just run the exe file in the [releases tab](https://github.com/machineonamission
 vanish before your eyes! For best results, add UWD2
 as [a startup program](https://support.microsoft.com/en-us/windows/add-apps-to-the-startup-page-in-settings-3d219555-bc76-449d-ab89-0d2dd6307164).
 
+## Installation (automatic startup)
+
+UWD2 can register itself as a scheduled task so the watermark is removed automatically at every logon.
+
+1. Download `uwd2-x86_64-pc-windows-msvc.exe` from the
+   [releases tab](https://github.com/machineonamission/uwd2/releases) (or from the workflow artifacts).
+2. Move the file to a permanent location (e.g. `C:\Tools\uwd2\`). The scheduled task points to the exe's current
+   path, so moving or deleting it **after** installing will break the task.
+3. Open PowerShell in that folder.
+4. (Optional) Verify the file integrity:
+
+   ```powershell
+   Get-FileHash .\uwd2-x86_64-pc-windows-msvc.exe -Algorithm SHA256
+   ```
+
+5. Test the build before installing:
+
+   ```powershell
+   .\uwd2-x86_64-pc-windows-msvc.exe status
+   ```
+
+6. Install (run PowerShell **as Administrator** — the task requires the highest run level):
+
+   ```powershell
+   .\uwd2-x86_64-pc-windows-msvc.exe install
+   ```
+
+To remove the scheduled task later:
+
+```powershell
+.\uwd2-x86_64-pc-windows-msvc.exe uninstall
+```
+
 ## Some disclaimers
 
 ### **UWD2 DOES NOT REMOVE THE "ACTIVATE WINDOWS" WATERMARK!!!**
