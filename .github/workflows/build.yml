@@ -13,6 +13,10 @@ on:
 permissions:
   contents: write
 
+env:
+  # força as actions JS a rodarem em Node 24 e silencia o aviso de depreciação do Node 20
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     name: Release - ${{ matrix.platform.release_for }}
@@ -70,7 +74,7 @@ jobs:
       - name: Move binaries
         run: |
           mkdir artifacts
-          mv ./downloads/**/* ./artifacts
+          find ./downloads -type f -exec mv {} ./artifacts \;
       - name: Upload final zip
         uses: actions/upload-artifact@v5
         with:
