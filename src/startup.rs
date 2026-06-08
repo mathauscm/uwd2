@@ -20,10 +20,10 @@ unsafe fn connect_service() -> Result<(ITaskService, ITaskFolder), UwdError> {
 
     service
         .Connect(
-            VARIANT::default(),
-            VARIANT::default(),
-            VARIANT::default(),
-            VARIANT::default(),
+            &VARIANT::default(),
+            &VARIANT::default(),
+            &VARIANT::default(),
+            &VARIANT::default(),
         )
         .map_err(UwdError::TaskCreateFailed)?;
 
@@ -92,10 +92,10 @@ pub fn install(exe_path: &str) -> Result<(), UwdError> {
                 &BSTR::from(TASK_NAME),
                 &task,
                 TASK_CREATE_OR_UPDATE.0,
-                VARIANT::default(),
-                VARIANT::default(),
+                &VARIANT::default(),
+                &VARIANT::default(),
                 TASK_LOGON_INTERACTIVE_TOKEN,
-                VARIANT::default(),
+                &VARIANT::default(),
             )
             .map_err(UwdError::TaskCreateFailed)?;
 
@@ -157,5 +157,7 @@ unsafe fn get_task_exe_path(task: &IRegisteredTask) -> Result<String, windows::c
     let actions = def.Actions()?;
     let action = actions.get_Item(1)?;
     let exec: IExecAction = action.cast()?;
-    Ok(exec.Path()?.to_string())
+    let mut path = BSTR::new();
+    exec.Path(&mut path)?;
+    Ok(path.to_string())
 }
